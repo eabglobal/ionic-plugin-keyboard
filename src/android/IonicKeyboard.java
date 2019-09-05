@@ -21,6 +21,8 @@ import android.view.Display;
 import android.graphics.Point;
 import android.os.Build;
 
+import android.util.Log;
+
 public class IonicKeyboard extends CordovaPlugin {
     private OnGlobalLayoutListener list;
     private View rootView;
@@ -128,7 +130,11 @@ public class IonicKeyboard extends CordovaPlugin {
 
     @Override
     public void onDestroy() {
-        rootView.getViewTreeObserver().removeOnGlobalLayoutListener(list);
+        try {
+            rootView.getViewTreeObserver().removeOnGlobalLayoutListener(list);
+        } catch (Exception e) {
+            Log.w("IonicKeyboard", "Rootview not initialized.");
+        }
     }
 
 }
